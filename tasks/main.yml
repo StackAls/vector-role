@@ -1,0 +1,18 @@
+---
+# tasks file for vector-role
+- name: Get Vector distrib
+  ansible.builtin.get_url:
+    url: "https://packages.timber.io/vector/{{ vector_versionm }}/vector-{{ vector_version }}.{{ ansible_architecture }}.rpm"
+    dest: "./vector-{{ vector_version }}.{{ ansible_architecture }}.rpm"
+    mode: "0755"
+- name: Install Vector packages
+  become: true
+  ansible.builtin.yum:
+    name: vector-{{ vector_version }}.{{ ansible_architecture }}.rpm
+- name: Deploy config Vector
+  become: true
+  ansible.builtin.template:
+    src: vector.j2
+    dest: /etc/vector/vector.yml
+    mode: "0755"
+  notify: Start Vector service
