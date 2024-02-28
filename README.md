@@ -7,6 +7,7 @@ Role Variables
 --------------
 
 | Vars | Description |
+|---|---|
 | vector_versionm | Major version |
 | vector_version | Full name version |
 
